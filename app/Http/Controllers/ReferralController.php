@@ -30,7 +30,7 @@ class ReferralController extends Controller
         $version = 2; // API version
         $pin = "15061987";
         $block_io = new BlockIo($apiKey, $pin, $version);
-        $newAddressInfo = $block_io->get_new_address(array('label' => 'jss'));
+        $newAddressInfo = $block_io->get_new_address();
         $ref = new Referral();
         $ref->user_id = 1;
         $ref->parent_id = 1;
