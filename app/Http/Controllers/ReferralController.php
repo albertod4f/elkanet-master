@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Referral;
+use BlockIo;
 use Illuminate\Http\Request;
+use function var_dump;
 
 class ReferralController extends Controller
 {
@@ -23,7 +26,16 @@ class ReferralController extends Controller
      */
     public function create()
     {
-        //
+        $apiKey = "6efd-e068-1bf3-521f";
+        $version = 2; // API version
+        $pin = "15061987";
+        $block_io = new BlockIo($apiKey, $pin, $version);
+        $newAddressInfo = $block_io->get_new_address(array('label' => 'jss'));
+        $ref = new Referral();
+        $ref->user_id = 1;
+        $ref->parent_id = 1;
+        $ref->address = $newAddressInfo->data->address;
+        $ref->save();
     }
 
     /**
@@ -34,7 +46,8 @@ class ReferralController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
     }
 
     /**
