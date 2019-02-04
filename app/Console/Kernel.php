@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\clients;
+use App\tagihan;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,9 +26,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $clients = clients::where('status_client', 1)->get();
 
+        foreach ($clients as $key => $client) {
+            $tagihan = new tagihan();
+            $tagihan->client_id = $client->id;
+            $tagihan->periode = date('y-m-d');
+            $tagihan->balance = $client->bayar;
+            $tagihan->amount = $client->bayar;
+            $tagihan->payment = 0;
+            $tagihan->save();
+        }
     }
 
     /**
