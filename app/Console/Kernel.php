@@ -39,7 +39,10 @@ class Kernel extends ConsoleKernel
                 $tagihan->payment = 0;
                 $tagihan->save();
             }
-        })->everyFiveMinutes();
+        })
+        ->monthlyOn(7, '11:00')->timezone('Asia/Jakarta');
+        
+ 
 
     }
 
